@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
+</head>
+<body>
+    <!--Nav Bar-->
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">My Task List</a>
+        </div>
+    </nav>
+    <div class="container">
+        <!--Text input with button-->
+        <form id="add-tarea-form">
+            <input type="text" name="titulo" placeholder="Add new task...">
+            <button class="waves-effect waves-light btn-small">Add task</button>
+        </form>
+        <!--List for collection-->
+        <ul class="collection" id="lista-tareas">
+            <!--<li class="collection-item">
+                <div>
+                    <span>Task1</span>
+                    <i class="material-icons secondary-content">delete_forever</i>
+                    <a href="#modal1" class="modal-trigger secondary-content"><i class="material-icons">edit</i></a> 
+                </div>
+            </li>-->
+        </ul>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Update taks</h4>
+                <input type="text" name="newTitle" placeholder="Update task...">
+            </div>
+            <div class="modal-footer">
+                <a href="#!" id="updateBtn" class="modal-close waves-effect waves-green btn-flat">Update</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
+    </script>
+    <!--Import the functions you need from the SDKs you need -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!--TODO: Add SDKs for Firebase products that you want to use -->
+    <!--https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!--Your web app's Firebase configuration -->
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyABklP1yhXB2oCJpSylxXkEz8bkZf5uKs8",
+          authDomain: "mytasklist-3f879.firebaseapp.com",
+          projectId: "mytasklist-3f879",
+          storageBucket: "mytasklist-3f879.appspot.com",
+          messagingSenderId: "1093878459090",
+          appId: "1:1093878459090:web:011d9707090d228ff05b0b"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>   
+    <script src="app.js"></script>
+</body>
+</html>
