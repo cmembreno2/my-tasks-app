@@ -85,3 +85,5 @@ db.collection('tasks').orderBy('title').onSnapshot(snapshot=>{
     })
 })
 
+//This is the end of the app
+
