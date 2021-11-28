@@ -10,6 +10,7 @@ const form = document.getElementById('add-tarea-form');
 let updateId = null;
 const updateBtn = document.getElementById('updateBtn');
 let newTitulo = '';
+var filtro = document.getElementById('filtro');
 
 class UI{
     static mostrarAlerta(mensaje,className){
@@ -106,6 +107,21 @@ db.collection('tasks').orderBy('title').onSnapshot(snapshot=>{
         }
     })
 })
+
+filtro.addEventListener('keyup',filtrarItems);
+
+function filtrarItems(e){
+    var texto = e.target.value.toLowerCase();
+    var items = lista.getElementsByTagName('li');
+    Array.from(items).forEach(function(item){
+        var itemNombre = item.firstChild.textContent;
+        if(itemNombre.toLowerCase().indexOf(texto) != -1){
+            item.style.display = 'block';
+        }else{
+            item.style.display = 'none';
+        }
+    });
+}
 
 //This is the end of the app
 
