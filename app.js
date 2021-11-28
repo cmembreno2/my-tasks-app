@@ -11,7 +11,19 @@ let updateId = null;
 const updateBtn = document.getElementById('updateBtn');
 let newTitulo = '';
 
+class UI{
+    static mostrarAlerta(mensaje,className){
+        const div = document.createElement('div');
+        div.className = `card-panel ${className}`;
+        div.appendChild(document.createTextNode(mensaje));
 
+        const container = document.querySelector('.container');
+        const form = document.getElementById('add-tarea-form');
+        container.insertBefore(div, form);
+
+        setTimeout(() => document.querySelector('.card-panel').remove(),3000);
+    }
+}
 
 const renderList = (doc)=>{
     let li = document.createElement('li');
@@ -43,6 +55,7 @@ const renderList = (doc)=>{
     delBtn.addEventListener('click',e=>{
         let id = e.target.parentElement.parentElement.getAttribute('data-id');
         db.collection('tasks').doc(id).delete();
+        UI.mostrarAlerta('Task deleted successfully!', 'red lighten-2');
     })
 
     editBtn.addEventListener('click',e=>{
@@ -58,15 +71,21 @@ updateBtn.addEventListener('click', e=>{
         title: newTitulo
     });
     document.getElementsByName('newTitle')[0].value='';
+    UI.mostrarAlerta('Task updated successfully!', 'teal lighten-1');
 })
 
 form.addEventListener('submit', e =>{
     e.preventDefault();
-    db.collection('tasks').add({
-        title: form.titulo.value
-    });
-    form.titulo.value='';
 
+    if(form.titulo.value===''){
+        UI.mostrarAlerta('Please fill with a task', 'red lighten-2');
+    }else{
+        db.collection('tasks').add({
+            title: form.titulo.value
+        });
+        form.titulo.value='';
+        UI.mostrarAlerta('New task added successfully!', 'teal lighten-1');
+    }
 })
 
 db.collection('tasks').orderBy('title').onSnapshot(snapshot=>{
